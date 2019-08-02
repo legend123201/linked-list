@@ -1,0 +1,5 @@
+﻿  LinkedList.cpp
+  main.cpp
+  Generating Code...
+  C:\Users\legen\Documents\GitHub\linked-list\Project1\LinkedList.cpp(20) : error C4700: uninitialized local variable 'run' used
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(429,5): error MSB6006: "CL.exe" exited with code 2.
