@@ -1,12 +1,94 @@
 #include "LinkedList.h"
-//#include <iostream> // "NULL" duoc dinh nghia trong day
+#include <iostream> // "NULL" duoc dinh nghia trong day
+#include <fstream>
 
 using namespace std;
+
+void StaticMenu(List &list)
+{
+	int a;
+	do
+	{
+		system("cls");
+		OutputConsolList(list);
+		cout << "\n\n\t\t =========== MENU ===========";
+		cout << "\n1. InsertFirst.";
+		cout << "\n2. InsertLast.";
+		cout << "\n3. InsertOrder.";
+		cout << "\n4. .";
+		cout << "\n5. .";
+		cout << "\n6. .";
+		cout << "\n7. . ";
+		cout << "\n0. .";
+		cout << "\n\n\t\t =========== END ===========";
+		cout << "\nChon chuc nang: ";
+		cin >> a;
+		switch (a)
+		{
+		case 1:
+		{
+			InsertFirst(list, InputAddData());
+			break;
+		}
+		case 2:
+		{
+			InsertLast(list, InputAddData());
+			break;
+		}
+		case 3:
+		{
+			InsertOrder(list, InputAddData());
+			break;
+		}
+		case 4:
+		{
+
+			break;
+		}
+		case 5:
+		{
+
+			break;
+		}
+		case 6:
+		{
+
+			break;
+		}
+		case 7:
+		{
+
+			break;
+		}
+		default:
+			break;
+		}
+	} while (a != 0);
+}
+
+void ReadFile(List &list, const char namefile[])
+{
+	int tempData;
+	ifstream f(namefile);
+	if (!f.fail())
+	{
+		cout << "Nhap file thanh cong" << endl;
+	}
+	else
+		cout << "Nhap file khong thanh cong" << endl;
+
+	while (!f.eof()) //neu file rong no van chay va cho 1 gia tri rac, nen phia tren phai co ham ktra file rong
+	{
+		f >> tempData;
+		InsertLast(list, tempData);
+	}
+	f.close();
+}
 
 int InputAddData()
 {
 	int addData;
-	cout << "/nNhap gia tri muon them: ";
+	cout << "\nNhap gia tri muon them: ";
 	cin >> addData;
 	return addData;
 }
@@ -17,7 +99,7 @@ void OutputConsolList(List& list)
 		cout << "Khong co phan tu nao!";
 	else
 	{
-		for (PTRList run; run != NULL; run = run->next)
+		for (PTRList run = list.first; run != NULL; run = run->next)
 		{
 			cout << run->data <<" ";
 		}
@@ -98,7 +180,7 @@ void InsertAfter(PTRList& p, int addData)
 void InsertOrder(List& list, int addData) //sap xep tang dan
 {
 	//neu ma rong thi cho vao dau, hoac la thu tu ngay vi tri dau thi cho vao dau
-	if (Empty(list) || list.first->data < addData)
+	if (Empty(list) || list.first->data > addData)
 	{
 		InsertFirst(list, addData);
 	}
