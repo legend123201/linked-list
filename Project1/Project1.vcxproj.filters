@@ -29,5 +29,11 @@
     <ClInclude Include="Structure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Design.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Dulieu.txt" />
   </ItemGroup>
 </Project>

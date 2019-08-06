@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 struct NodesLinkedList
 {
@@ -12,3 +13,8 @@ typedef struct
 	PTRList first;
 	PTRList last;
 }List;
+
+struct NodeDauTrang {
+	int trangHienTai = 1;
+	PTRList hoaDonDauTrang[20] = { NULL };
+};

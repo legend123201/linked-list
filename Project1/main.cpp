@@ -10,7 +10,7 @@ int main()
 {
 	List list;
 	CreateList(list);
-	//ReadFile(list, "Dulieu.txt");
+	ReadFile(list, "Dulieu.txt");
 	StaticMenu(list);
 	return 0;
 }
