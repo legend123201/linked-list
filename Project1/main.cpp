@@ -11,6 +11,7 @@ int main()
 	List list;
 	CreateList(list);
 	ReadFile(list, "Dulieu.txt");
-	StaticMenu(list);
+	//StaticMenu(list);
+	MainList(list);
 	return 0;
 }

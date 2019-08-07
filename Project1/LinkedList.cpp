@@ -281,111 +281,108 @@ void DeleteInfo(List& list, int delData)
 	cout << "Phan tu can xoa ko ton tai!";
 }
 
-void Keyhit_Move(int keyhit)
+PTRList endNode(PTRList firstNode)
 {
+	if (firstNode == NULL)
+		return NULL;
+	PTRList run = firstNode;
+	for (int i = 0; i < 9 && run->next != NULL; i++, run = run->next); //run -> next != NULL de ko bi chay lo them dong run = run -> next, no se tra ve phan tu truoc NULL neu ma ko duc 10 phan tu
+	return run;
+}
+
+PTRList prevNode(PTRList firstNode, PTRList currentNode)
+{
+	if (firstNode == NULL)
+		return NULL;
+	PTRList run;
+	for (run = firstNode; run->next != currentNode; run = run->next);
+	return run;
+}
+
+void Keyhit_Move(PTRList& firstNode, PTRList& lastNode, PTRList& currentNode, NodeDauTrang& x, int keyhit)
+{
+	if (firstNode == NULL)
+		return;
 	if (keyhit == KEY_UP) {
-		if (currentList != firstList) {
-			currentList = prevList(firstList, currentList);
+		if (currentNode != firstNode) //khong phai nut dau 
+		{
+			currentNode = prevNode(firstNode, currentNode);
 		}
-		else if (currentList == firstList) {
-			currentList = lastList;
+		else if (currentNode == firstNode) //la nut dau thi cho thanh nut cuoi
+		{
+			currentNode = lastNode;
 		}
 	}
 	else if (keyhit == KEY_DOWN) {
-		if (currentList != lastList) {
-			currentList = currentList->next;
+		if (currentNode != lastNode) //khong phai nut cuoi
+		{
+			currentNode = currentNode->next;
 		}
-		else if (currentList == lastList) {
-			currentList = firstList;
+		else if (currentNode == lastNode) //la nut cuoi thi cho thanh nut dau
+		{
+			currentNode = firstNode;
 		}
 	}
 	else if (keyhit == KEY_RIGHT) {
-		if (lastList->next != NULL) {
-			x.hoaDonDauTrang[++x.trangHienTai] = lastList->next;
-			firstList = lastList->next;
-			lastList = endList(firstList);
-			currentList = firstList;
+		if (lastNode->next != NULL) // van con phan tu cho page sau
+		{
+			x.hoaDonDauTrang[++x.trangHienTai] = lastNode->next; //ghi lai phan tu dau tien cua page tiep theo
+			firstNode = lastNode->next;
+			lastNode = endNode(firstNode);
+			currentNode = firstNode;
 		}
 	}
 	else if (keyhit == KEY_LEFT) {
-		if (x.trangHienTai > 1) {
-			//delete x.hoadondautrang[x.tranghientai];
-			firstList = x.hoaDonDauTrang[--x.trangHienTai];
-			lastList = endList(firstList);
-			currentList = firstList;
+		if (x.trangHienTai > 1) //ko phai page dau tien
+		{
+			//delete x.hoadondautrang[x.tranghientai]; //hoi xua lam dong nay de toi uu nhung bi sai, no chi la con tro nen ko can xoa
+			firstNode = x.hoaDonDauTrang[--x.trangHienTai];
+			lastNode = endNode(firstNode);
+			currentNode = firstNode;
 		}
 	}
 }
 
-void Output10Nodes()
+void Output10Nodes(PTRList firstNode, PTRList lastNode, PTRList currentNode, NodeDauTrang x)
 {
-	int j = 0;
-	int i = 0;
-	int t = (x.trangHienTai - 1) * 10;
-	for (PTRHoaDon run = firstList; run != lastList->next, run != NULL; run = run->next) {
-		if (run == currentList)
+	if (firstNode == NULL)
+		return;
+	int t = (x.trangHienTai - 1) * 10; //t la so thu tu
+	for (PTRList run = firstNode; run != lastNode->next; run = run->next) {
+		if (run == currentNode)
 		{
-			TextColor(4);
-			textbk(15);
+			cout << "\n" << run->data << "  <--- ";
 		}
 		else
 		{
-			TextColor(0);
-			textbk(15);
-		}
-		j = 0;
-		t += 1;
-		gotoXY(36 + j, 18 + i);
-		cout << CenterTextInSpace(to_string(t), BOXHDWIDE - 1);
-		j += 25;
-		gotoXY(36 + j, 18 + i);
-		cout << CenterTextInSpace(run->infoHoaDon.soHoaDon, BOXHDWIDE - 1);
-		j += 25;
-		gotoXY(36 + j, 18 + i);
-		string temp_date;
-		temp_date = IntToString(run->infoHoaDon.ngayNhapHoaDon.date) + " / " + IntToString(run->infoHoaDon.ngayNhapHoaDon.month) + " / " + IntToString(run->infoHoaDon.ngayNhapHoaDon.year);
-		cout << CenterTextInSpace(temp_date, BOXHDWIDE - 1);
-		j += 25;
-		gotoXY(36 + j, 18 + i);
-		cout << CenterTextInSpace(run->infoHoaDon.loai, BOXHDWIDE - 1);
-		j += 25;
-		gotoXY(36 + j, 18 + i);
-		string temp_trigia = to_string(this->TriGiaHD(run));
-		cout << CenterTextInSpace(DelFloatTrail(temp_trigia), BOXHDWIDE - 1);
-		i += 2;
+			cout << "\n" << run->data;
+		}	
 	}
-	TextColor(0);
-	textbk(15);
-	if (t < (x.trangHienTai - 1) * 10 + 10) {
+	if (t < (x.trangHienTai - 1) * 10 + 10) //neu page nay ko du 10 phan tu thi se de trong
+	{
 		for (int k = t; k <= (x.trangHienTai - 1) * 10 + 10; k++) {
-			j = 0;
-			gotoXY(36 + j, 18 + i);
-			cout << CenterTextInSpace("", BOXHDWIDE - 1);
-			j += 25;
-			gotoXY(36 + j, 18 + i);
-			cout << CenterTextInSpace("", BOXHDWIDE - 1);
-			j += 25;
-			gotoXY(36 + j, 18 + i);
-			cout << CenterTextInSpace("", BOXHDWIDE - 1);
-			j += 25;
-			gotoXY(36 + j, 18 + i);
-			cout << CenterTextInSpace("", BOXHDWIDE - 1);
-			j += 25;
-			gotoXY(36 + j, 18 + i);
-			cout << CenterTextInSpace("", BOXHDWIDE - 1);
-			i += 2;
+			cout << " ";
 		}
 	}
 }
 
-void MainList()
+void MainList(List& list)
 {
 	PTRList firstNode, lastNode, currentNode;
 	NodeDauTrang x;
 	int keyhit = 0;
+	firstNode = currentNode = x.hoaDonDauTrang[x.trangHienTai] = list.first;
+	lastNode = endNode(firstNode);
 	while (true)
 	{
+		system("cls");
 		if (keyhit == 224)
 			keyhit = _getch();
+		Keyhit_Move(firstNode, lastNode, currentNode, x, keyhit); //chuyen node
+		OutputConsolList(list);
+		Output10Nodes(firstNode, lastNode, currentNode, x); // in 10 node lai
+		if (keyhit == ESC)
+			return;
+		keyhit = _getch();
 	}
 }
