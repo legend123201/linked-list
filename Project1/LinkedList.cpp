@@ -286,7 +286,7 @@ PTRList endNode(PTRList firstNode)
 	if (firstNode == NULL)
 		return NULL;
 	PTRList run = firstNode;
-	for (int i = 0; i < 9 && run->next != NULL; i++, run = run->next); //run -> next != NULL de ko bi chay lo them dong run = run -> next, no se tra ve phan tu truoc NULL neu ma ko duc 10 phan tu
+	for (int i = 0; i < 9 && run->next != NULL; i++, run = run->next); //run -> next != NULL de ko bi chay lo them dong run = run -> next, no se tra ve phan tu truoc NULL neu ma ko du 10 phan tu
 	return run;
 }
 
@@ -343,6 +343,58 @@ void Keyhit_Move(PTRList& firstNode, PTRList& lastNode, PTRList& currentNode, No
 	}
 }
 
+void Keyhit_Delete(List& list, PTRList& firstNode, PTRList& lastNode, PTRList& currentNode, NodeDauTrang& x, int keyhit)
+{
+	if (list.first == NULL)
+		return;
+	if (keyhit == DEL)
+	{
+		if (currentNode == x.hoaDonDauTrang[x.trangHienTai]) //cur la dau trang
+		{
+			if (currentNode != list.first) //cur ko phai la fisrt toan bo danh sach
+			{
+				lastNode = endNode(x.hoaDonDauTrang[--x.trangHienTai]); //cho lastnode thanh last cua page truoc 
+				firstNode = x.hoaDonDauTrang[x.trangHienTai]; //firstnode cung thanh first cua page truoc
+				CapnhatNodesdautrang(x);
+				DeleteInfo(list, currentNode->data);
+				currentNode = lastNode; //cho cur chi vao cuoi page
+			}
+			else //cur la first toan bo danh sach
+			{
+				if (list.first->next == NULL) // truong hop toan bo danh sach co 1 phan tu
+				{
+					DeleteInfo(list, currentNode->data);
+					currentNode = firstNode = lastNode = NULL;
+				}
+				else // con nhieu phan tu
+				{
+					x.hoaDonDauTrang[x.trangHienTai] = x.hoaDonDauTrang[x.trangHienTai]->next; //cap nhat rieng cai first trang hien tai
+					firstNode = firstNode->next; // first page tro next
+					lastNode = endNode(firstNode);//cap nhat lai last
+					CapnhatNodesdautrang(x);// cap nhat cac page sau
+					DeleteInfo(list, currentNode->data);
+					currentNode = firstNode;//cap nhat lai current
+				}
+			}
+		}
+		else if (currentNode == lastNode) // truong hop cur la lastNode (last toan bo ds cung la 1 lastNode)
+		{
+			CapnhatNodesdautrang(x); //cap nhat cac page sau
+			DeleteInfo(list, currentNode->data);
+			lastNode = currentNode = endNode(firstNode); //cap nhat lai current va last
+		}
+		else // truong hop cur binh thuong
+		{
+			CapnhatNodesdautrang(x); //cap nhat cac page sau
+			PTRList temp = currentNode->next;//giu vi tri cur->next
+			DeleteInfo(list, currentNode->data);
+			currentNode = temp;//cur = vi tri tro next hoi nay
+			lastNode = endNode(firstNode); //cap nhat lai last
+		}
+		system("cls"); //xoa man hinh, no se viet lai danh sach o nhung hang phia duoi trong while true
+	}
+}
+
 void Output10Nodes(PTRList firstNode, PTRList lastNode, PTRList currentNode, NodeDauTrang x)
 {
 	if (firstNode == NULL)
@@ -366,6 +418,16 @@ void Output10Nodes(PTRList firstNode, PTRList lastNode, PTRList currentNode, Nod
 	}
 }
 
+void CapnhatNodesdautrang(NodeDauTrang& x)
+{
+	for (int i = x.trangHienTai + 1; i < 20; i++)
+	{
+		if (x.hoaDonDauTrang[i] == NULL)
+			break;
+		x.hoaDonDauTrang[i] = x.hoaDonDauTrang[i]->next;
+	}
+}
+
 void MainList(List& list)
 {
 	PTRList firstNode, lastNode, currentNode;
@@ -379,6 +441,7 @@ void MainList(List& list)
 		if (keyhit == 224)
 			keyhit = _getch();
 		Keyhit_Move(firstNode, lastNode, currentNode, x, keyhit); //chuyen node
+		Keyhit_Delete(list, firstNode, lastNode, currentNode, x, keyhit);
 		OutputConsolList(list);
 		Output10Nodes(firstNode, lastNode, currentNode, x); // in 10 node lai
 		if (keyhit == ESC)
