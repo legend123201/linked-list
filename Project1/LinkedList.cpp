@@ -77,7 +77,10 @@ void ReadFile(List &list, const char namefile[])
 		cout << "Nhap file thanh cong" << endl;
 	}
 	else
+	{
 		cout << "Nhap file khong thanh cong" << endl;
+		return;
+	}
 
 	while (!f.eof()) //neu file rong no van chay va cho 1 gia tri rac, nen phia tren phai co ham ktra file rong
 	{
@@ -114,7 +117,7 @@ void CreateList(List& list)
 	list.last = NULL;
 }
 
-bool Empty(List& list)
+bool Empty(List list)
 {
 	if (list.first == NULL)
 		return true;

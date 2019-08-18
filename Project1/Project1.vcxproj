@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dulieu.txt" />
+    <Text Include="DulieuTree.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
