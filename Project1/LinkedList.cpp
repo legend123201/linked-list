@@ -3,7 +3,6 @@
 #include <fstream>
 #include "Design.h"
 #include <conio.h> //_getch() trong nay
-
 using namespace std;
 
 void StaticMenu(List &list)

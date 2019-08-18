@@ -125,11 +125,13 @@
   <ItemGroup>
     <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Design.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Structure.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dulieu.txt" />

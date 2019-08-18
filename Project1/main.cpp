@@ -3,7 +3,6 @@
 #include "Structure.h"
 #include <fstream>
 #include <windows.h> //system "cls" "pause" trong nay
-
 using namespace std;
 
 int main()

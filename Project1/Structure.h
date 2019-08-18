@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 
+//khai bao cho ds lien ket don
 struct NodesLinkedList
 {
 	int data;
@@ -18,3 +19,14 @@ struct NodeDauTrang {
 	int trangHienTai = 1;
 	PTRList hoaDonDauTrang[20] = { NULL };
 };
+
+//khai bao cho cay nhi phan
+
+struct NodesTree
+{
+	int key;
+	int data;	
+	struct NodesTree* left;
+	struct NodesTree* right;
+};
+typedef struct NodesTree* PTRTree;
