@@ -81,7 +81,6 @@ void ReadFile(List &list, const char namefile[])
 		cout << "Nhap file khong thanh cong" << endl;
 		return;
 	}
-
 	while (!f.eof()) //neu file rong no van chay va cho 1 gia tri rac, nen phia tren phai co ham ktra file rong
 	{
 		f >> tempData;
@@ -216,7 +215,7 @@ int InsertOrder(List& list, int addData) //sap xep tang dan, tra ve so thu tu th
 	else //ko rong va ko phai thu tu dau
 	{
 		PTRList run;
-		for (run = list.first; run->next != NULL && run->next->data < addData; run = run->next, soLuongNut++); //luon xu li tren run->next, de khi tim dc "run" thi xu li node dang sau run cho ez
+		for (run = list.first; (run->next != NULL) && (run->next->data < addData); run = run->next, soLuongNut++); //luon xu li tren run->next, de khi tim dc "run" thi xu li node dang sau run cho ez
 		InsertAfter(run, addData);
 		return ++soLuongNut; //tra ve thu tu hien tai
 	}	
@@ -494,7 +493,7 @@ void Output10Nodes(PTRList firstNode, PTRList lastNode, PTRList currentNode, Nod
 			cout << "\n" << run->data;
 		}	
 	}
-	if (t < (x.trangHienTai - 1) * 10 + 10) //neu page nay ko du 10 phan tu thi se de trong
+	if (t < (x.trangHienTai - 1) * 10 + 10) //neu page nay ko du 10 phan tu thi se de trang nhung vi tri con lai
 	{
 		for (int k = t; k <= (x.trangHienTai - 1) * 10 + 10; k++) {
 			cout << " ";
