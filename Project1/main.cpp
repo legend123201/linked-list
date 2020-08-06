@@ -9,13 +9,18 @@ using namespace std;
 int main()
 {
 	List list;
-	//PTRTree root;
+	
 	CreateList(list);
 	ReadFile(list, "Dulieu.txt");
+	List temp;
+	temp = list;
+	DeleteFirst(temp);
 	//StaticMenu(list);
-	MainList(list);
-	//CreateTree(root);
-	//ReadFile(root, "DulieuTree.txt");
-	//StaticMenu(root);
+	//MainList(list);
+
+	/*PTRTree root;
+	CreateTree(root);
+	ReadFile(root, "DulieuTree.txt");
+	StaticMenu(root);*/
 	return 0;
 }

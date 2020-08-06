@@ -140,7 +140,7 @@ void DeleteTree(PTRTree& p, int delKey)
 		{
 			PTRTree temp = p; //tao temp va tro vao vi tri cua phan tu can xoa
 			if (p->left == NULL) //TH ko co cay con ben trai
-				p = p->right; // vi la de quy nen dong nay co nghia la p->right = p->right->right(TH can xoa nut ben phai cua nut nao do), the nen no lien ket voi nhau duoc
+				p = p->right; // vi la de quy nen dong nay co nghia la p->right = p->right->right(TH can xoa nut ben phai cua nut nao do) hoac la p->left = p->left->right(TH can xoa nut ben trai cua nut nao do), the nen no lien ket voi nhau duoc
 			else if (p->right == NULL)//TH ko co cay con ben phai
 				p = p->left;
 			else
@@ -161,7 +161,7 @@ void DeleteTreeCase3(PTRTree& p, PTRTree& temp)
 		temp->key = p->key;
 		temp->data = p->data;
 		temp = p; //temp giu vi tri can xoa
-		p = p->right; //noi lai cay con ben phai cua p vao lai cay
+		p = p->right; //noi lai cay con ben phai cua p vao lai cay //vi no la nut tan cung ben trai nen no chi co cay con ben phai hoac ko co nut la nao
 	}
 }
 
